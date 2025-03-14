@@ -16,7 +16,9 @@ use anyhow::Result;
     - essential:
         - parse csv file to rust structs
         - build header based of arg flag
-        - query tool (simplest possible)
+        - handling different data types (requied for query tool and filters)
+        - query tool and filters (simplest possible) -> use traits for filters
+        - abstraction for different input sources (files, strings, streams) -> use traits
 
     - transformers:
         - csv2json
@@ -29,6 +31,8 @@ use anyhow::Result;
 fn main() -> Result<()> {
     let config = parse_args();
     let file_contents = read_file(config.file_path)?;
+
+    let parse_res = parse(file_contents, config.with_header);
 
     Ok(())
 }
